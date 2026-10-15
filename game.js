@@ -39,7 +39,7 @@
   const player = { x: 64, y: 414, w: 30, h: 42, vx: 0, vy: 0, grounded: false };
   const gravity = 1800;
   const speed = 310;
-  const jumpSpeed = 690;
+  const jumpSpeed = 800;
   let cameraX = 0;
   let jumpQueued = false;
   let finished = false;
