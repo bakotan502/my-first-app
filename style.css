@@ -1,8 +1,8 @@
 :root {
   color-scheme: dark;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #0a1020;
-  color: #f4f6fb;
+  background: #070816;
+  color: #eafcff;
   font-synthesis: none;
 }
 
@@ -15,9 +15,9 @@ body {
   place-items: center;
   padding: 32px 20px;
   background:
-    radial-gradient(ellipse at 50% 0%, rgb(63 76 131 / 30%), transparent 55%),
-    radial-gradient(ellipse at 50% 100%, rgb(39 25 58 / 32%), transparent 48%),
-    #0a1020;
+    radial-gradient(ellipse at 12% 4%, rgb(37 91 130 / 24%), transparent 43%),
+    radial-gradient(ellipse at 88% 88%, rgb(145 26 103 / 21%), transparent 48%),
+    #070816;
 }
 
 .game-page { width: min(100%, 1040px); }
@@ -32,7 +32,7 @@ body {
 
 .eyebrow {
   margin: 0 0 7px;
-  color: #83a9c8;
+  color: #43f5e8;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .22em;
@@ -46,17 +46,17 @@ h1 {
 
 .subheading {
   margin: 7px 0 0;
-  color: #aab9d1;
+  color: #9ab8c9;
   font-size: 14px;
 }
 
 .restart {
   flex: none;
-  border: 1px solid #3b526a;
-  border-radius: 10px;
+  border: 1px solid #266a79;
+  border-radius: 3px;
   padding: 10px 14px;
-  background: linear-gradient(145deg, #1b2940, #141e32);
-  color: #eef2fa;
+  background: linear-gradient(145deg, #112534, #101322);
+  color: #eafcff;
   font: inherit;
   font-size: 13px;
   font-weight: 700;
@@ -65,19 +65,19 @@ h1 {
 }
 
 .restart:hover {
-  border-color: #52cbbb;
-  background: #20364b;
-  box-shadow: 0 0 18px rgb(69 218 201 / 16%);
+  border-color: #43f5e8;
+  background: #143340;
+  box-shadow: 0 0 20px rgb(67 245 232 / 25%);
   transform: translateY(-1px);
 }
 
 .game-shell {
   position: relative;
   overflow: hidden;
-  border: 1px solid #3d526b;
-  border-radius: 16px;
-  background: #17243a;
-  box-shadow: 0 28px 90px rgb(0 0 0 / 48%), 0 0 34px rgb(76 115 174 / 12%), 0 2px 8px rgb(0 0 0 / 24%);
+  border: 1px solid #27677b;
+  border-radius: 5px;
+  background: #0b1120;
+  box-shadow: 0 28px 90px rgb(0 0 0 / 58%), 0 0 34px rgb(42 224 227 / 13%), 0 0 2px #43f5e8;
 }
 
 canvas {
@@ -95,7 +95,7 @@ canvas {
   display: grid;
   place-items: center;
   padding: 20px;
-  background: rgb(8 13 31 / 76%);
+  background: rgb(5 7 20 / 82%);
   text-align: center;
   backdrop-filter: blur(3px);
 }
@@ -110,7 +110,7 @@ canvas {
 
 .game-over-card p {
   margin: 0;
-  color: #ff8e9e;
+  color: #ff4fa3;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: .24em;
@@ -118,18 +118,18 @@ canvas {
 
 .game-over-card h2 {
   margin: 0 0 8px;
-  color: #fff1f4;
+  color: #f9eaff;
   font-size: clamp(25px, 5vw, 42px);
-  text-shadow: 0 0 24px rgb(255 89 111 / 42%);
+  text-shadow: 0 0 24px rgb(255 60 172 / 55%);
 }
 
 .retry-button {
-  border: 1px solid #ff8795;
-  border-radius: 10px;
+  border: 1px solid #ff61b0;
+  border-radius: 3px;
   padding: 11px 22px;
-  background: linear-gradient(135deg, #ff8191, #e44d78);
-  box-shadow: 0 0 22px rgb(255 89 111 / 24%);
-  color: #1b1830;
+  background: linear-gradient(135deg, #ff4fa3, #b52e9c);
+  box-shadow: 0 0 22px rgb(255 60 172 / 28%);
+  color: #100b20;
   font: inherit;
   font-size: 14px;
   font-weight: 800;
@@ -138,12 +138,12 @@ canvas {
 }
 
 .retry-button:hover {
-  box-shadow: 0 0 30px rgb(255 89 111 / 42%);
+  box-shadow: 0 0 30px rgb(255 60 172 / 52%);
   transform: translateY(-2px);
 }
 
 .retry-button:focus-visible {
-  outline: 3px solid #fff1f4;
+  outline: 3px solid #f9eaff;
   outline-offset: 3px;
 }
 
@@ -152,15 +152,15 @@ canvas {
   justify-content: space-between;
   gap: 20px;
   padding: 14px 18px;
-  border-top: 1px solid #30435b;
-  background: linear-gradient(90deg, #17243a, #1b2940);
-  color: #aab9d1;
+  border-top: 1px solid #1c4658;
+  background: linear-gradient(90deg, #0b1627, #111225);
+  color: #9ab8c9;
   font-size: 12px;
   line-height: 1.5;
 }
 
-.game-footer strong { color: #e9f3fa; }
-.objective { color: #ffd47b; }
+.game-footer strong { color: #43f5e8; }
+.objective { color: #ffe66d; }
 
 .touch-controls {
   display: none;
@@ -177,18 +177,18 @@ canvas {
 .touch-controls button {
   width: 58px;
   height: 52px;
-  border: 1px solid #3c6577;
-  border-radius: 13px;
-  background: linear-gradient(145deg, #1d3048, #15243a);
-  color: #f4f6fb;
+  border: 1px solid #266a79;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #112534, #101322);
+  color: #eafcff;
   font: inherit;
   font-size: 19px;
   font-weight: 800;
   touch-action: none;
 }
 
-.touch-controls button:active { background: #28495a; }
-.touch-controls .jump-button { width: 86px; color: #ffd47b; font-size: 14px; }
+.touch-controls button:active { background: #143340; }
+.touch-controls .jump-button { width: 86px; color: #ffe66d; font-size: 14px; }
 
 @media (pointer: coarse), (max-width: 700px) {
   body { padding: 24px 14px; }

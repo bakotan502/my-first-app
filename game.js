@@ -205,73 +205,63 @@
 
   function drawBackground() {
     const sky = ctx.createLinearGradient(0, 0, 0, height);
-    sky.addColorStop(0, "#090f25");
-    sky.addColorStop(.48, "#253960");
-    sky.addColorStop(.78, "#745274");
-    sky.addColorStop(1, "#e08b71");
+    sky.addColorStop(0, "#070816");
+    sky.addColorStop(.55, "#11122c");
+    sky.addColorStop(1, "#271235");
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, width, height);
 
-    const glow = ctx.createRadialGradient(755 - cameraX * .035, 112, 8, 755 - cameraX * .035, 112, 110);
-    glow.addColorStop(0, "rgb(255 224 177 / 32%)");
-    glow.addColorStop(1, "rgb(255 190 162 / 0%)");
+    const glow = ctx.createRadialGradient(755 - cameraX * .035, 330, 8, 755 - cameraX * .035, 330, 250);
+    glow.addColorStop(0, "rgb(255 60 172 / 13%)");
+    glow.addColorStop(1, "rgb(255 60 172 / 0%)");
     ctx.fillStyle = glow;
     ctx.beginPath();
-    ctx.arc(755 - cameraX * .035, 112, 110, 0, Math.PI * 2);
+    ctx.arc(755 - cameraX * .035, 330, 250, 0, Math.PI * 2);
     ctx.fill();
-    ctx.fillStyle = "#ffe7c4";
-    ctx.beginPath();
-    ctx.arc(755 - cameraX * .035, 112, 30, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = "rgb(255 255 255 / 28%)";
-    ctx.beginPath();
-    ctx.arc(746 - cameraX * .035, 103, 23, Math.PI, Math.PI * 1.85);
-    ctx.strokeStyle = "rgb(255 255 255 / 28%)";
-    ctx.lineWidth = 2;
-    ctx.stroke();
 
     for (let i = 0; i < 48; i++) {
       const x = ((i * 173 + 37 - cameraX * .045) % (width + 173) + width + 173) % (width + 173);
       const y = 22 + (i * 67 % 205);
       const radius = i % 7 === 0 ? 1.7 : 1;
-      ctx.fillStyle = i % 4 === 0 ? "rgb(255 226 184 / 78%)" : "rgb(219 232 255 / 68%)";
+      ctx.fillStyle = i % 4 === 0 ? "rgb(67 245 232 / 78%)" : "rgb(255 60 172 / 62%)";
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    for (let i = 0; i < 8; i++) {
-      const x = ((i * 190 - cameraX * .16) % (width + 240) + width + 240) % (width + 240) - 100;
-      const y = 118 + (i % 3) * 50;
-      ctx.fillStyle = "rgb(230 224 255 / 10%)";
-      ctx.beginPath();
-      ctx.ellipse(x, y, 55, 12, 0, 0, Math.PI * 2);
-      ctx.ellipse(x + 28, y - 7, 35, 15, 0, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
     for (let layer = 0; layer < 2; layer++) {
-      const parallax = layer === 0 ? .12 : .23;
-      const baseY = layer === 0 ? 390 : 435;
-      const mountain = ctx.createLinearGradient(0, baseY - 90, 0, height);
-      mountain.addColorStop(0, layer === 0 ? "#30385f" : "#242b4b");
-      mountain.addColorStop(1, layer === 0 ? "#202b49" : "#151d38");
-      ctx.fillStyle = mountain;
-      ctx.beginPath();
-      ctx.moveTo(0, height);
-      for (let i = -1; i <= 9; i++) {
-        const x = i * 180 - (cameraX * parallax % 180);
-        ctx.lineTo(x, baseY - (i % 2 === 0 ? 75 : 10));
-        ctx.lineTo(x + 90, baseY + (i % 2 === 0 ? 10 : -58));
+      const parallax = layer === 0 ? .12 : .24;
+      const baseY = layer === 0 ? 410 : 455;
+      const spacing = layer === 0 ? 112 : 86;
+      const offset = cameraX * parallax % spacing;
+      for (let i = -2; i < 13; i++) {
+        const seed = i + Math.floor(cameraX * parallax / spacing);
+        const buildingX = i * spacing - offset;
+        const buildingW = spacing - 8 - Math.abs(seed % 3) * 8;
+        const buildingH = 75 + Math.abs((seed * 47) % (layer === 0 ? 130 : 175));
+        const buildingY = baseY - buildingH;
+        ctx.fillStyle = layer === 0 ? "#11172e" : "#0b1121";
+        ctx.fillRect(buildingX, buildingY, buildingW, height - buildingY);
+        ctx.fillStyle = layer === 0 ? "rgb(67 245 232 / 27%)" : "rgb(255 60 172 / 43%)";
+        ctx.fillRect(buildingX, buildingY, buildingW, 2);
+        ctx.fillStyle = "rgb(67 245 232 / 15%)";
+        ctx.fillRect(buildingX + 8, buildingY + 10, 2, height - buildingY - 10);
+        for (let row = 0; row < Math.floor((height - buildingY - 18) / 17); row++) {
+          for (let col = 0; col < Math.floor((buildingW - 16) / 14); col++) {
+            if ((seed + row * 3 + col * 5) % 4 === 0) {
+              ctx.fillStyle = (seed + col) % 2 === 0
+                ? "rgb(67 245 232 / 52%)"
+                : "rgb(255 60 172 / 47%)";
+              ctx.fillRect(buildingX + 8 + col * 14, buildingY + 12 + row * 17, 4, 7);
+            }
+          }
+        }
       }
-      ctx.lineTo(width, height);
-      ctx.closePath();
-      ctx.fill();
     }
 
     const horizon = ctx.createLinearGradient(0, 400, 0, 470);
-    horizon.addColorStop(0, "rgb(255 174 132 / 0%)");
-    horizon.addColorStop(1, "rgb(255 174 132 / 16%)");
+    horizon.addColorStop(0, "rgb(67 245 232 / 0%)");
+    horizon.addColorStop(1, "rgb(67 245 232 / 9%)");
     ctx.fillStyle = horizon;
     ctx.fillRect(0, 400, width, 70);
   }
@@ -281,30 +271,30 @@
     ctx.translate(-cameraX, 0);
 
     for (const platform of platforms) {
-      const stone = ctx.createLinearGradient(0, platform.y, 0, platform.y + platform.h);
-      stone.addColorStop(0, "#354765");
-      stone.addColorStop(1, "#1b2945");
-      ctx.fillStyle = stone;
+      ctx.fillStyle = "#101a2c";
       ctx.fillRect(platform.x, platform.y, platform.w, platform.h);
-      ctx.fillStyle = "rgb(46 226 208 / 12%)";
-      ctx.fillRect(platform.x, platform.y + 8, platform.w, 3);
-      ctx.fillStyle = "#52e0ce";
-      ctx.fillRect(platform.x, platform.y, platform.w, 8);
-      ctx.fillStyle = "rgb(8 17 37 / 42%)";
+      ctx.shadowColor = "#43f5e8";
+      ctx.shadowBlur = 12;
+      ctx.fillStyle = "#43f5e8";
+      ctx.fillRect(platform.x, platform.y, platform.w, 3);
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "rgb(67 245 232 / 9%)";
+      ctx.fillRect(platform.x, platform.y + 3, platform.w, 7);
+      ctx.fillStyle = "rgb(3 8 20 / 70%)";
       for (let x = platform.x + 14; x < platform.x + platform.w; x += 34) {
         ctx.fillRect(x, platform.y + 23, 12, 3);
-        ctx.fillStyle = "rgb(129 159 192 / 18%)";
+        ctx.fillStyle = "rgb(255 60 172 / 28%)";
         ctx.fillRect(x + 5, platform.y + 39, 7, 2);
-        ctx.fillStyle = "rgb(8 17 37 / 42%)";
+        ctx.fillStyle = "rgb(3 8 20 / 70%)";
       }
     }
 
     for (const hazard of hazards) {
-      ctx.shadowColor = "#ff596f";
+      ctx.shadowColor = "#ff3cac";
       ctx.shadowBlur = 12;
       const spike = ctx.createLinearGradient(0, hazard.y, 0, hazard.y + hazard.h);
-      spike.addColorStop(0, "#ff9c86");
-      spike.addColorStop(1, "#e34c70");
+      spike.addColorStop(0, "#ff74cb");
+      spike.addColorStop(1, "#c72f9b");
       ctx.fillStyle = spike;
       ctx.beginPath();
       for (let x = hazard.x; x < hazard.x + hazard.w; x += 20) {
@@ -314,34 +304,34 @@
       }
       ctx.fill();
       ctx.shadowBlur = 0;
-      ctx.fillStyle = "#9e385d";
+      ctx.fillStyle = "#74245f";
       ctx.fillRect(hazard.x, hazard.y + hazard.h - 4, hazard.w, 4);
     }
 
     for (const coin of coins) {
       if (coin.collected) continue;
       const bob = Math.sin(performance.now() / 240 + coin.x) * 3;
-      ctx.shadowColor = "#ffca65";
+      ctx.shadowColor = "#ffe66d";
       ctx.shadowBlur = 18;
-      ctx.fillStyle = "rgb(255 198 91 / 24%)";
+      ctx.fillStyle = "rgb(67 245 232 / 22%)";
       ctx.beginPath();
       ctx.arc(coin.x, coin.y + bob, 16, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillStyle = "#ffc95d";
+      ctx.fillStyle = "#43f5e8";
       ctx.beginPath();
       ctx.ellipse(coin.x, coin.y + bob, 7, 10, 0, 0, Math.PI * 2);
       ctx.fill();
       ctx.shadowBlur = 0;
-      ctx.fillStyle = "#fff0c1";
+      ctx.fillStyle = "#f4ffff";
       ctx.fillRect(coin.x - 2, coin.y + bob - 6, 2, 6);
     }
 
     const goalX = worldWidth - 100;
-    ctx.shadowColor = "#66f0d6";
-    ctx.shadowBlur = 12;
-    ctx.fillStyle = "#d8f4ee";
+    ctx.shadowColor = "#43f5e8";
+    ctx.shadowBlur = 16;
+    ctx.fillStyle = "#dfffff";
     ctx.fillRect(goalX, 350, 6, 120);
-    ctx.fillStyle = "#51e4ca";
+    ctx.fillStyle = "#ff3cac";
     ctx.beginPath();
     ctx.moveTo(goalX + 6, 352);
     ctx.lineTo(goalX + 58, 370);
@@ -349,7 +339,7 @@
     ctx.closePath();
     ctx.fill();
     ctx.shadowBlur = 0;
-    ctx.fillStyle = "#a8c9d8";
+    ctx.fillStyle = "#43f5e8";
     ctx.beginPath();
     ctx.ellipse(goalX + 3, 470, 15, 5, 0, 0, Math.PI * 2);
     ctx.fill();
@@ -366,47 +356,47 @@
     ctx.ellipse(x + player.w / 2, Math.min(470, y + player.h + 4), 19, 5, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.shadowColor = "rgb(62 226 209 / 55%)";
-    ctx.shadowBlur = 14;
+    ctx.shadowColor = "rgb(67 245 232 / 75%)";
+    ctx.shadowBlur = 18;
     roundedRect(x + 3, y + 7, player.w - 6, player.h - 8, 10);
     const cloak = ctx.createLinearGradient(x, y + 8, x + player.w, y + player.h);
-    cloak.addColorStop(0, "#55e5d1");
-    cloak.addColorStop(1, "#258bb0");
+    cloak.addColorStop(0, "#43f5e8");
+    cloak.addColorStop(1, "#1877a5");
     ctx.fillStyle = cloak;
     ctx.fill();
     ctx.shadowBlur = 0;
     roundedRect(x + 6, y + 2, player.w - 12, 21, 8);
-    ctx.fillStyle = "#f3d5bb";
+    ctx.fillStyle = "#d9faff";
     ctx.fill();
     roundedRect(x + 5, y + 11, player.w - 10, 8, 4);
-    ctx.fillStyle = "#172b4b";
+    ctx.fillStyle = "#17132e";
     ctx.fill();
-    ctx.fillStyle = "#8bf5e7";
+    ctx.fillStyle = "#ff3cac";
     ctx.fillRect(x + 19, y + 13, 4, 3);
-    ctx.fillStyle = "#ffbd68";
+    ctx.fillStyle = "#ffe66d";
     ctx.beginPath();
     ctx.moveTo(x + 6, y + 24);
     ctx.lineTo(x - 2, y + 35);
     ctx.lineTo(x + 13, y + 31);
     ctx.closePath();
     ctx.fill();
-    ctx.fillStyle = "#182642";
+    ctx.fillStyle = "#101629";
     ctx.fillRect(x + 6, y + 34, 8, 7);
     ctx.fillRect(x + 18, y + 34, 8, 7);
-    ctx.fillStyle = "#e8f1f5";
+    ctx.fillStyle = "#43f5e8";
     ctx.fillRect(x + 3, y + player.h - 4, 11, 5);
     ctx.fillRect(x + 17, y + player.h - 4, 11, 5);
   }
 
   function drawOverlay() {
     if (!finished) return;
-    ctx.fillStyle = "rgb(12 19 32 / 48%)";
+    ctx.fillStyle = "rgb(5 7 20 / 68%)";
     ctx.fillRect(0, 0, width, height);
     ctx.textAlign = "center";
-    ctx.fillStyle = "#fff3cf";
+    ctx.fillStyle = "#eaffff";
     ctx.font = "800 46px system-ui, sans-serif";
-    ctx.fillText("STAGE CLEAR!", width / 2, height / 2 - 8);
-    ctx.fillStyle = "#f2e8d4";
+    ctx.fillText("ステージクリア！", width / 2, height / 2 - 8);
+    ctx.fillStyle = "#43f5e8";
     ctx.font = "16px system-ui, sans-serif";
     ctx.fillText("最初からボタンでもう一度遊べます", width / 2, height / 2 + 30);
     ctx.textAlign = "start";
