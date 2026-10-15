@@ -1,11 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101522">
+  <title>SKYBOUND — 小さな冒険</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="game.js" defer></script>
 </head>
 <body>
- ようこそ私のページへ！   
+  <main class="game-page">
+    <header class="topline">
+      <div>
+        <p class="eyebrow">A TINY PLATFORM ADVENTURE</p>
+        <h1>SKYBOUND <span aria-hidden="true">✦</span></h1>
+        <p class="subheading">風の谷を駆け抜けて、ゴールを目指そう。</p>
+      </div>
+      <button class="restart" id="restart" type="button">↻　最初から</button>
+    </header>
+
+    <section class="game-shell" aria-label="横スクロールアクションゲーム">
+      <canvas id="game" width="960" height="540" aria-label="主人公を操作してゴールを目指すゲーム"></canvas>
+      <div class="game-footer">
+        <span><strong>操作</strong>　← → / A D で移動　・　Space / ↑ / W でジャンプ</span>
+        <span class="objective" id="status" aria-live="polite">コインを集めて、旗まで進もう</span>
+      </div>
+    </section>
+
+    <nav class="touch-controls" aria-label="タッチ操作">
+      <div class="touch-group">
+        <button type="button" data-control="left" aria-label="左へ移動">←</button>
+        <button type="button" data-control="right" aria-label="右へ移動">→</button>
+      </div>
+      <button class="jump-button" type="button" data-control="jump" aria-label="ジャンプ">JUMP</button>
+    </nav>
+  </main>
 </body>
 </html>
