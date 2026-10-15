@@ -1,7 +1,7 @@
 :root {
   color-scheme: dark;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #101522;
+  background: #0a1020;
   color: #f4f6fb;
   font-synthesis: none;
 }
@@ -15,8 +15,9 @@ body {
   place-items: center;
   padding: 32px 20px;
   background:
-    radial-gradient(ellipse at 50% 0%, rgb(55 72 110 / 30%), transparent 55%),
-    #101522;
+    radial-gradient(ellipse at 50% 0%, rgb(63 76 131 / 30%), transparent 55%),
+    radial-gradient(ellipse at 50% 100%, rgb(39 25 58 / 32%), transparent 48%),
+    #0a1020;
 }
 
 .game-page { width: min(100%, 1040px); }
@@ -31,7 +32,7 @@ body {
 
 .eyebrow {
   margin: 0 0 7px;
-  color: #8c9ab7;
+  color: #83a9c8;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .22em;
@@ -45,32 +46,37 @@ h1 {
 
 .subheading {
   margin: 7px 0 0;
-  color: #aab3c6;
+  color: #aab9d1;
   font-size: 14px;
 }
 
 .restart {
   flex: none;
-  border: 1px solid #39435a;
+  border: 1px solid #3b526a;
   border-radius: 10px;
   padding: 10px 14px;
-  background: #1b2231;
+  background: linear-gradient(145deg, #1b2940, #141e32);
   color: #eef2fa;
   font: inherit;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: background .15s, border-color .15s;
+  transition: background .15s, border-color .15s, transform .15s, box-shadow .15s;
 }
 
-.restart:hover { border-color: #7f91b4; background: #242e42; }
+.restart:hover {
+  border-color: #52cbbb;
+  background: #20364b;
+  box-shadow: 0 0 18px rgb(69 218 201 / 16%);
+  transform: translateY(-1px);
+}
 
 .game-shell {
   overflow: hidden;
-  border: 1px solid #38435a;
+  border: 1px solid #3d526b;
   border-radius: 16px;
-  background: #1b2940;
-  box-shadow: 0 24px 80px rgb(0 0 0 / 36%), 0 2px 8px rgb(0 0 0 / 24%);
+  background: #17243a;
+  box-shadow: 0 28px 90px rgb(0 0 0 / 48%), 0 0 34px rgb(76 115 174 / 12%), 0 2px 8px rgb(0 0 0 / 24%);
 }
 
 canvas {
@@ -85,14 +91,15 @@ canvas {
   justify-content: space-between;
   gap: 20px;
   padding: 14px 18px;
-  border-top: 1px solid #313b50;
-  color: #aab3c6;
+  border-top: 1px solid #30435b;
+  background: linear-gradient(90deg, #17243a, #1b2940);
+  color: #aab9d1;
   font-size: 12px;
   line-height: 1.5;
 }
 
-.game-footer strong { color: #e9edf6; }
-.objective { color: #f6d778; }
+.game-footer strong { color: #e9f3fa; }
+.objective { color: #ffd47b; }
 
 .touch-controls {
   display: none;
@@ -109,9 +116,9 @@ canvas {
 .touch-controls button {
   width: 58px;
   height: 52px;
-  border: 1px solid #424e68;
+  border: 1px solid #3c6577;
   border-radius: 13px;
-  background: #1b2231;
+  background: linear-gradient(145deg, #1d3048, #15243a);
   color: #f4f6fb;
   font: inherit;
   font-size: 19px;
@@ -119,8 +126,8 @@ canvas {
   touch-action: none;
 }
 
-.touch-controls button:active { background: #34415a; }
-.touch-controls .jump-button { width: 86px; color: #f6d778; font-size: 14px; }
+.touch-controls button:active { background: #28495a; }
+.touch-controls .jump-button { width: 86px; color: #ffd47b; font-size: 14px; }
 
 @media (pointer: coarse), (max-width: 700px) {
   body { padding: 24px 14px; }
