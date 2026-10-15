@@ -21,6 +21,13 @@
 
     <section class="game-shell" aria-label="横スクロールアクションゲーム">
       <canvas id="game" width="960" height="540" aria-label="主人公を操作してゴールを目指すゲーム"></canvas>
+      <div class="game-over" id="game-over" hidden role="alert">
+        <div class="game-over-card">
+          <p>GAME OVER</p>
+          <h2>ゲームオーバー</h2>
+          <button class="retry-button" id="retry" type="button">もう一度遊ぶ</button>
+        </div>
+      </div>
       <div class="game-footer">
         <span><strong>操作</strong>　← → / A D で移動　・　Space / ↑ / W でジャンプ</span>
         <span class="objective" id="status" aria-live="polite">コインを集めて、旗まで進もう</span>

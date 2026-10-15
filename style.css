@@ -72,6 +72,7 @@ h1 {
 }
 
 .game-shell {
+  position: relative;
   overflow: hidden;
   border: 1px solid #3d526b;
   border-radius: 16px;
@@ -84,6 +85,66 @@ canvas {
   width: 100%;
   aspect-ratio: 16 / 9;
   touch-action: none;
+}
+
+.game-over {
+  position: absolute;
+  z-index: 1;
+  inset: 1px 1px auto;
+  aspect-ratio: 16 / 9;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(8 13 31 / 76%);
+  text-align: center;
+  backdrop-filter: blur(3px);
+}
+
+.game-over[hidden] { display: none; }
+
+.game-over-card {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.game-over-card p {
+  margin: 0;
+  color: #ff8e9e;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .24em;
+}
+
+.game-over-card h2 {
+  margin: 0 0 8px;
+  color: #fff1f4;
+  font-size: clamp(25px, 5vw, 42px);
+  text-shadow: 0 0 24px rgb(255 89 111 / 42%);
+}
+
+.retry-button {
+  border: 1px solid #ff8795;
+  border-radius: 10px;
+  padding: 11px 22px;
+  background: linear-gradient(135deg, #ff8191, #e44d78);
+  box-shadow: 0 0 22px rgb(255 89 111 / 24%);
+  color: #1b1830;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+}
+
+.retry-button:hover {
+  box-shadow: 0 0 30px rgb(255 89 111 / 42%);
+  transform: translateY(-2px);
+}
+
+.retry-button:focus-visible {
+  outline: 3px solid #fff1f4;
+  outline-offset: 3px;
 }
 
 .game-footer {

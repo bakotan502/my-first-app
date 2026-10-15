@@ -2,6 +2,7 @@
   const canvas = document.querySelector("#game");
   const ctx = canvas.getContext("2d");
   const status = document.querySelector("#status");
+  const gameOverPanel = document.querySelector("#game-over");
   const width = canvas.width;
   const height = canvas.height;
   const worldWidth = 3600;
@@ -43,6 +44,7 @@
   let cameraX = 0;
   let jumpQueued = false;
   let finished = false;
+  let gameOver = false;
   let previousTime = 0;
 
   function reset() {
@@ -53,7 +55,11 @@
     player.grounded = false;
     cameraX = 0;
     finished = false;
+    gameOver = false;
     jumpQueued = false;
+    input.left = false;
+    input.right = false;
+    gameOverPanel.hidden = true;
     coins.forEach((coin) => { coin.collected = false; });
     status.textContent = "コインを集めて、旗まで進もう";
   }
@@ -105,6 +111,7 @@
   });
 
   document.querySelector("#restart").addEventListener("click", reset);
+  document.querySelector("#retry").addEventListener("click", reset);
 
   function overlaps(a, b) {
     return a.x < b.x + b.w && a.x + a.w > b.x &&
@@ -112,16 +119,20 @@
   }
 
   function die() {
-    player.x = 64;
-    player.y = 414;
+    if (gameOver) return;
     player.vx = 0;
     player.vy = 0;
     player.grounded = false;
-    cameraX = 0;
+    input.left = false;
+    input.right = false;
+    jumpQueued = false;
+    gameOver = true;
+    gameOverPanel.hidden = false;
+    status.textContent = "ゲームオーバー！ リトライしてもう一度挑戦しよう";
   }
 
   function update(delta) {
-    if (finished) return;
+    if (finished || gameOver) return;
 
     const direction = Number(input.right) - Number(input.left);
     player.vx = direction * speed;
@@ -169,6 +180,7 @@
       }
     }
     if (player.y > height + 120) die();
+    if (gameOver) return;
 
     for (const coin of coins) {
       if (!coin.collected && overlaps(player, { x: coin.x - 12, y: coin.y - 12, w: 24, h: 24 })) {
